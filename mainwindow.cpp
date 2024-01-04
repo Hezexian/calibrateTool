@@ -4,11 +4,15 @@
 #include <QComboBox>
 #include <QListView>
 #include <QDebug>
-#include <QOverload>
+//#include <QOverload>
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QSettings>
 #include <QDir>
+#include <opencv2/opencv.hpp>
+#include <vector>
+using namespace std;
+using namespace cv;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -33,19 +37,24 @@ MainWindow::~MainWindow()
 // add images to program
 void MainWindow::addImages(int idx)
 {
+    /* add images from file*/
     if(idx == 1){
-        /* add images from file*/
+        // load images' paths
         QStringList fileNames = QFileDialog::getOpenFileNames(
             this, tr("Open File"), QDir::currentPath(),
             "Images (*.png *.jpg *.jpeg)");
-        for(int i=0; i<fileNames.size(); ++i)
-        {
-            qDebug()<<fileNames.at(i);
+        // set checkboard params
+
+        for(const auto &filename : fileNames){
+            qDebug()<<filename;
         }
 
+
     }
+
+
+    /* add images from camera*/
     else if(idx == 2){
-        /* add images from camera*/
 
     }
 }

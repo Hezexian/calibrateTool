@@ -12,7 +12,13 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 ### 3rdpart
 # opencv
 set(OpenCV_DIR ${PROJECT_SOURCE_DIR}/3rdpart/opencv-4.8.0/build/install)
-include_directories(${OpenCV_INCLUDE_DIRS})
+find_package(OpenCV REQUIRED)
+if(OpenCV_FOUND)
+  message(STATUS "OpenCV version: ${OpenCV_VERSION}")
+  include_directories(${OpenCV_INCLUDE_DIRS})
+else()
+  message(FATAL_ERROR "OpenCV not found")
+endif()
 ###
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets LinguistTools)

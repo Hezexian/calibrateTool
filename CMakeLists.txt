@@ -44,6 +44,9 @@ set(PROJECT_SOURCES
 
         # translate file
         ${TS_FILES}
+
+        # calibrate source file
+        monocalibrate.hpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

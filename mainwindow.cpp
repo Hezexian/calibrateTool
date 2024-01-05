@@ -1,5 +1,6 @@
 #include "mainwindow.hpp"
 #include "./ui_mainwindow.h"
+#include "imageandpatternproperties.hpp"
 
 #include <QComboBox>
 #include <QListView>
@@ -9,9 +10,10 @@
 #include <QMessageBox>
 #include <QSettings>
 #include <QDir>
-#include <opencv2/opencv.hpp>
+
 #include <vector>
-#include "imageandpatternproperties.hpp"
+
+#include <opencv2/opencv.hpp>
 
 using namespace std;
 using namespace cv;

@@ -28,9 +28,17 @@ set(TS_FILES calibrateTool_en_US.ts calibrateTool_zh_CN.ts)
 
 set(PROJECT_SOURCES
         main.cpp
+
+        # mainwindow
         mainwindow.cpp
         mainwindow.hpp
         mainwindow.ui
+
+        # image And Pattern Properties Dialog
+        imageandpatternproperties.hpp
+        imageandpatternproperties.cpp
+        imageandpatternproperties.ui
+
         ${TS_FILES}
 )
 

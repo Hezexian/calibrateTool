@@ -11,6 +11,8 @@
 #include <QDir>
 #include <opencv2/opencv.hpp>
 #include <vector>
+#include "imageandpatternproperties.hpp"
+
 using namespace std;
 using namespace cv;
 
@@ -19,6 +21,13 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    /*mainwindow design*/
+    // tab widdet tool design
+    ui->tabWidget_tool->setTabText(0,tr("mono calibrate"));
+    ui->tabWidget_tool->setTabText(1,tr("stereo calibate"));
+    ui->tabWidget_tool->setTabText(2,tr("camera"));
+    ui->tabWidget_tool->setTabEnabled(2,false);
+    ui->tabWidget_tool->setCurrentIndex(0);
 
     // add calibrate images
     QStringList addImages = {tr("add Images"),tr("From images"),tr("From camera")};
@@ -26,6 +35,8 @@ MainWindow::MainWindow(QWidget *parent)
     QListView *view = dynamic_cast<QListView *>(ui->comboBox_addImages->view());
     view->setRowHidden(0,true);
     connect(ui->comboBox_addImages, QOverload<int>::of(&QComboBox::activated), this, &MainWindow::addImages);
+    connect(ui->comboBox_addImages, QOverload<int>::of(&QComboBox::activated), this, &MainWindow::addImages);
+
 
 }
 
@@ -44,18 +55,33 @@ void MainWindow::addImages(int idx)
             this, tr("Open File"), QDir::currentPath(),
             "Images (*.png *.jpg *.jpeg)");
         // set checkboard params
-
-        for(const auto &filename : fileNames){
-            qDebug()<<filename;
+        if(fileNames.size() != 0){
+            ImageAndPatternProperties *imageAndPatternPropertiesDialog = new ImageAndPatternProperties();
+            imageAndPatternPropertiesDialog->show();
         }
-
+        /* TODO
+         * get checkboard params and corner detect
+         *
+         * */
 
     }
 
-
     /* add images from camera*/
     else if(idx == 2){
+        ui->tabWidget_tool->setTabEnabled(2,true);
+        ui->tabWidget_tool->setCurrentIndex(2);
+        ui->tabWidget_tool->setTabEnabled(0,false);
+        ui->tabWidget_tool->setTabEnabled(1,false);
+        /* TODO
+         * camera working
+         * */
 
+        connect(ui->pushButton_closeCamera,&QPushButton::clicked,this,[=](){
+            ui->tabWidget_tool->setTabEnabled(2,false);
+            ui->tabWidget_tool->setTabEnabled(0,true);
+            ui->tabWidget_tool->setTabEnabled(1,true);
+            ui->tabWidget_tool->setCurrentIndex(0);
+        });
     }
 }
 

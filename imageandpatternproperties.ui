@@ -15,67 +15,6 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
-    <widget class="QGroupBox" name="groupBox_patternSelect">
-     <property name="title">
-      <string>Pattern Selection</string>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>Choose Pattern</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>45</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QComboBox" name="comboBox_checkboardMode">
-        <item>
-         <property name="text">
-          <string>Checherboad</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Asymmetric Circle Grid</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Symmetric Circle Grid</string>
-         </property>
-        </item>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>128</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <widget class="QPushButton" name="pushButton_customPattern">
@@ -152,149 +91,457 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox_properties">
-     <property name="minimumSize">
-      <size>
-       <width>531</width>
-       <height>151</height>
-      </size>
+    <widget class="QTabWidget" name="tabWidget_properties">
+     <property name="currentIndex">
+      <number>0</number>
      </property>
-     <property name="title">
-      <string>Properties</string>
-     </property>
-     <widget class="QLabel" name="label_img">
-      <property name="geometry">
-       <rect>
-        <x>380</x>
-        <y>20</y>
-        <width>111</width>
-        <height>121</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>Tab 1</string>
+      </attribute>
+      <widget class="QWidget" name="layoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>60</y>
+         <width>327</width>
+         <height>57</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>Size of checkboard square</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="lineEdit_size">
+            <property name="minimumSize">
+             <size>
+              <width>71</width>
+              <height>24</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>71</width>
+              <height>24</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboBox_unit">
+            <property name="minimumSize">
+             <size>
+              <width>82</width>
+              <height>24</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>82</width>
+              <height>24</height>
+             </size>
+            </property>
+            <item>
+             <property name="text">
+              <string>millimeters</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>centimeters</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>inches</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_5">
+          <item>
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>Image distortion</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_5">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="radioButton_low">
+            <property name="text">
+             <string>Low</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_6">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="radioButton_high">
+            <property name="text">
+             <string>High</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QLabel" name="label_checker">
+       <property name="geometry">
+        <rect>
+         <x>380</x>
+         <y>40</y>
+         <width>131</width>
+         <height>121</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
      </widget>
-     <widget class="QWidget" name="">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>40</y>
-        <width>327</width>
-        <height>57</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_3">
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_4">
-         <item>
-          <widget class="QLabel" name="label_3">
-           <property name="text">
-            <string>Size of checkboard square</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="lineEdit_size">
-           <property name="minimumSize">
-            <size>
-             <width>71</width>
-             <height>24</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>71</width>
-             <height>24</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QComboBox" name="comboBox">
-           <property name="minimumSize">
-            <size>
-             <width>82</width>
-             <height>24</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>82</width>
-             <height>24</height>
-            </size>
-           </property>
-           <item>
+     <widget class="QWidget" name="tab_2">
+      <attribute name="title">
+       <string>Tab 2</string>
+      </attribute>
+      <widget class="QLabel" name="label_asymImg">
+       <property name="geometry">
+        <rect>
+         <x>380</x>
+         <y>40</y>
+         <width>131</width>
+         <height>121</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+      <widget class="QWidget" name="layoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>60</y>
+         <width>319</width>
+         <height>92</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <item>
+           <widget class="QLabel" name="label_6">
             <property name="text">
-             <string>millimeters</string>
+             <string>Center-to-center distence</string>
             </property>
-           </item>
-           <item>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="lineEdit_asymSize">
+            <property name="minimumSize">
+             <size>
+              <width>71</width>
+              <height>24</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>71</width>
+              <height>24</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboBox_unit_2">
+            <property name="minimumSize">
+             <size>
+              <width>82</width>
+              <height>24</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>82</width>
+              <height>24</height>
+             </size>
+            </property>
+            <item>
+             <property name="text">
+              <string>millimeters</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>centimeters</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>inches</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QGridLayout" name="gridLayout">
+          <item row="0" column="2">
+           <widget class="QLineEdit" name="lineEdit_dim1">
+            <property name="minimumSize">
+             <size>
+              <width>71</width>
+              <height>24</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>71</width>
+              <height>24</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLabel" name="label_9">
             <property name="text">
-             <string>centimeters</string>
+             <string>Dim2</string>
             </property>
-           </item>
-           <item>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_7">
             <property name="text">
-             <string>inches</string>
+             <string>Pattern dimensions</string>
             </property>
-           </item>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_5">
-         <item>
-          <widget class="QLabel" name="label_2">
-           <property name="text">
-            <string>Image distortion</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="horizontalSpacer_5">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="radioButton_low">
-           <property name="text">
-            <string>Low</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="horizontalSpacer_6">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="radioButton_high">
-           <property name="text">
-            <string>High</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QLineEdit" name="lineEdit_dim2">
+            <property name="minimumSize">
+             <size>
+              <width>71</width>
+              <height>24</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>71</width>
+              <height>24</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLabel" name="label_8">
+            <property name="text">
+             <string>Dim1</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="3">
+           <spacer name="horizontalSpacer_7">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="tab_3">
+      <attribute name="title">
+       <string>页</string>
+      </attribute>
+      <widget class="QLabel" name="label_synImg">
+       <property name="geometry">
+        <rect>
+         <x>380</x>
+         <y>40</y>
+         <width>131</width>
+         <height>121</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+      <widget class="QWidget" name="layoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>60</y>
+         <width>319</width>
+         <height>92</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_7">
+          <item>
+           <widget class="QLabel" name="label_10">
+            <property name="text">
+             <string>Center-to-center distence</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="lineEdit_symSize">
+            <property name="minimumSize">
+             <size>
+              <width>71</width>
+              <height>24</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>71</width>
+              <height>24</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboBox_unit_3">
+            <property name="minimumSize">
+             <size>
+              <width>82</width>
+              <height>24</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>82</width>
+              <height>24</height>
+             </size>
+            </property>
+            <item>
+             <property name="text">
+              <string>millimeters</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>centimeters</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>inches</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QGridLayout" name="gridLayout_2">
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="lineEdit_colums">
+            <property name="minimumSize">
+             <size>
+              <width>71</width>
+              <height>24</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>71</width>
+              <height>24</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="lineEdit_rows">
+            <property name="minimumSize">
+             <size>
+              <width>71</width>
+              <height>24</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>71</width>
+              <height>24</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_11">
+            <property name="text">
+             <string>Number of Rows</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_12">
+            <property name="text">
+             <string>Number of Colums</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <spacer name="horizontalSpacer_8">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </widget>
    </item>

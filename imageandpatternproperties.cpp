@@ -1,6 +1,8 @@
 #include "imageandpatternproperties.hpp"
+#include "qlineedit.h"
 #include <QDebug>
 #include <QSize>
+#include <QTextEdit>
 
 ImageAndPatternProperties::ImageAndPatternProperties(QWidget *parent) :
     QDialog(parent),
@@ -9,9 +11,9 @@ ImageAndPatternProperties::ImageAndPatternProperties(QWidget *parent) :
     ui->setupUi(this);
 
     // setting dialog
+    this->setWindowTitle(tr("Image and Pattern Propeties"));
     this->setFixedSize(QSize(553,350));
-    ui->groupBox_patternSelect->setFixedSize(QSize(531,67));
-    ui->groupBox_properties->setFixedSize(QSize(531,200));
+    ui->tabWidget_properties->setFixedSize(QSize(531,200));
 
     //setting pushButton_custompattern
     ui->frame_customPattern->hide();
@@ -32,10 +34,26 @@ ImageAndPatternProperties::ImageAndPatternProperties(QWidget *parent) :
            " drop-down menu. "));
 
     // setting properties groupbox
+    ui->tabWidget_properties->setTabText(0,tr("checkerboard"));
+    ui->tabWidget_properties->setTabText(1,tr("Asymmetric Circle Grid"));
+    ui->tabWidget_properties->setTabText(2,tr("Symmetric Circle Grid"));
+
+    ui->tabWidget_properties->setCurrentIndex(0);
+    //init checkerboard
     ui->lineEdit_size->setText("25");
     ui->radioButton_low->setChecked(true);
     QPixmap pixmap = QPixmap(":/src/src/checkboad1.png");
-    ui->label_img->setPixmap(pixmap);
+    ui->label_checker->setPixmap(pixmap);
+    //init asym
+    ui->lineEdit_asymSize->setText("25");
+    ui->lineEdit_dim1->setText("3");
+    ui->lineEdit_dim2->setText("5");
+    ui->label_asymImg->setPixmap(QPixmap(":/src/src/checkboad2.png"));
+    //init sym
+    ui->lineEdit_symSize->setText("25");
+    ui->lineEdit_rows->setText("5");
+    ui->lineEdit_colums->setText("5");
+    ui->label_synImg->setPixmap(QPixmap(":/src/src/checkboard3.png"));
 }
 
 ImageAndPatternProperties::~ImageAndPatternProperties()
@@ -43,7 +61,4 @@ ImageAndPatternProperties::~ImageAndPatternProperties()
     delete ui;
 }
 
-//inline void ImageAndPatternProperties::pushButton_custompattern_togged(bool checked)
-//{
 
-//}

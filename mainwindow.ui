@@ -214,19 +214,36 @@
           <property name="title">
            <string>CAMERA MODEL</string>
           </property>
-          <widget class="QGroupBox" name="groupBox_cameraModel">
+          <widget class="QPushButton" name="pushButton_cameraModelOptions">
            <property name="geometry">
             <rect>
-             <x>0</x>
+             <x>130</x>
              <y>20</y>
-             <width>121</width>
+             <width>61</width>
              <height>81</height>
             </rect>
            </property>
-           <property name="title">
-            <string>Camera Model</string>
+           <property name="text">
+            <string>Options</string>
+           </property>
+          </widget>
+          <widget class="QWidget" name="">
+           <property name="geometry">
+            <rect>
+             <x>20</x>
+             <y>20</y>
+             <width>89</width>
+             <height>69</height>
+            </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout">
+            <item>
+             <widget class="QLabel" name="label_2">
+              <property name="text">
+               <string>Camera Model</string>
+              </property>
+             </widget>
+            </item>
             <item>
              <widget class="QRadioButton" name="radioButton_standard">
               <property name="text">
@@ -242,19 +259,6 @@
              </widget>
             </item>
            </layout>
-          </widget>
-          <widget class="QPushButton" name="pushButton_cameraModelOptions">
-           <property name="geometry">
-            <rect>
-             <x>130</x>
-             <y>20</y>
-             <width>61</width>
-             <height>81</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Options</string>
-           </property>
           </widget>
          </widget>
         </item>

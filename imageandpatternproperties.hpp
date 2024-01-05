@@ -22,7 +22,7 @@ private:
     Ui::ImageAndPatternProperties *ui;
 
 public slots:
-//    void pushButton_custompattern_togged(bool checked);
+
 };
 
 

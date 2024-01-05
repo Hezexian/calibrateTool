@@ -22,7 +22,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     /*mainwindow design*/
-    // tab widdet tool design
+    this->setWindowTitle(tr("calibrate Tool"));
+    // tabwiddet_tool design
     ui->tabWidget_tool->setTabText(0,tr("mono calibrate"));
     ui->tabWidget_tool->setTabText(1,tr("stereo calibrate"));
     ui->tabWidget_tool->setTabText(2,tr("camera"));
@@ -31,6 +32,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // button set
     ui->pushButton_defaultLayout->setText(tr("Default\nLayout"));
+    ui->radioButton_standard->setChecked(true);
 
     // add calibrate images (setting comboBox_addImages )
     QStringList addImages = {tr("add Images"),tr("From images"),tr("From camera")};

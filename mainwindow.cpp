@@ -24,7 +24,7 @@ MainWindow::MainWindow(QWidget *parent)
     /*mainwindow design*/
     // tab widdet tool design
     ui->tabWidget_tool->setTabText(0,tr("mono calibrate"));
-    ui->tabWidget_tool->setTabText(1,tr("stereo calibate"));
+    ui->tabWidget_tool->setTabText(1,tr("stereo calibrate"));
     ui->tabWidget_tool->setTabText(2,tr("camera"));
     ui->tabWidget_tool->setTabEnabled(2,false);
     ui->tabWidget_tool->setCurrentIndex(0);

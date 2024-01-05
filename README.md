@@ -13,7 +13,7 @@
 - []...
 
 # A MATLAB-calibrate-APP-Like calibrate Tool based on Qt&OpenCV
-building
+building...
 ## TODO
 - [...]mono calibrate
 - []stereo calibrate

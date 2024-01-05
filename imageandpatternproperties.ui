@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>553</width>
-    <height>460</height>
+    <height>484</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -78,7 +78,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <widget class="QPushButton" name="pushButton_custompattern">
+      <widget class="QPushButton" name="pushButton_customPattern">
        <property name="text">
         <string>Custom Pattern</string>
        </property>
@@ -162,6 +162,140 @@
      <property name="title">
       <string>Properties</string>
      </property>
+     <widget class="QLabel" name="label_img">
+      <property name="geometry">
+       <rect>
+        <x>380</x>
+        <y>20</y>
+        <width>111</width>
+        <height>121</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>40</y>
+        <width>327</width>
+        <height>57</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <widget class="QLabel" name="label_3">
+           <property name="text">
+            <string>Size of checkboard square</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="lineEdit_size">
+           <property name="minimumSize">
+            <size>
+             <width>71</width>
+             <height>24</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>71</width>
+             <height>24</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="comboBox">
+           <property name="minimumSize">
+            <size>
+             <width>82</width>
+             <height>24</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>82</width>
+             <height>24</height>
+            </size>
+           </property>
+           <item>
+            <property name="text">
+             <string>millimeters</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>centimeters</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>inches</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Image distortion</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_5">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="radioButton_low">
+           <property name="text">
+            <string>Low</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_6">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="radioButton_high">
+           <property name="text">
+            <string>High</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </item>
    <item>

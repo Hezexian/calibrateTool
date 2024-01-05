@@ -29,12 +29,14 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tabWidget_tool->setTabEnabled(2,false);
     ui->tabWidget_tool->setCurrentIndex(0);
 
-    // add calibrate images
+    // button set
+    ui->pushButton_defaultLayout->setText(tr("Default\nLayout"));
+
+    // add calibrate images (setting comboBox_addImages )
     QStringList addImages = {tr("add Images"),tr("From images"),tr("From camera")};
     ui->comboBox_addImages->addItems(addImages);
     QListView *view = dynamic_cast<QListView *>(ui->comboBox_addImages->view());
     view->setRowHidden(0,true);
-    connect(ui->comboBox_addImages, QOverload<int>::of(&QComboBox::activated), this, &MainWindow::addImages);
     connect(ui->comboBox_addImages, QOverload<int>::of(&QComboBox::activated), this, &MainWindow::addImages);
 
 

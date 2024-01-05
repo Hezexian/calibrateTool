@@ -39,6 +39,10 @@ set(PROJECT_SOURCES
         imageandpatternproperties.cpp
         imageandpatternproperties.ui
 
+        # resource
+        src.qrc
+
+        # translate file
         ${TS_FILES}
 )
 

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1162</width>
-    <height>624</height>
+    <width>1163</width>
+    <height>670</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -30,7 +30,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_mono">
        <attribute name="title">
@@ -64,7 +64,7 @@
               </size>
              </property>
              <property name="text">
-              <string>PushButton</string>
+              <string>New Session</string>
              </property>
             </widget>
            </item>
@@ -77,7 +77,7 @@
               </size>
              </property>
              <property name="text">
-              <string>PushButton</string>
+              <string>Open Session</string>
              </property>
             </widget>
            </item>
@@ -90,7 +90,7 @@
               </size>
              </property>
              <property name="text">
-              <string>PushButton</string>
+              <string>Save Session</string>
              </property>
             </widget>
            </item>
@@ -182,7 +182,7 @@
           <property name="title">
            <string>LAYOUT</string>
           </property>
-          <widget class="QPushButton" name="pushButton_defaultLoyout">
+          <widget class="QPushButton" name="pushButton_defaultLayout">
            <property name="geometry">
             <rect>
              <x>10</x>
@@ -499,8 +499,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1162</width>
-     <height>25</height>
+     <width>1163</width>
+     <height>21</height>
     </rect>
    </property>
   </widget>

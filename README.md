@@ -2,13 +2,6 @@
 功能仿照MATLAB的标定程序，输出可直接用opencv读取的标定文件
 ![main window](./src/readmeFile/Snipaste_2024-01-05_12-06-38.png)
 
-对标MATLAB三种标定板标定方式
-
-![checkerboard](./src/readmeFile/checkboard1.png)
-
-![Asymmetric Circle Grid](./src/readmeFile/checkboard2.png)
-
-![Symmetric Circle Grid](./src/readmeFile/checkboard3.png)
 
 施工中...
 ## TODO 

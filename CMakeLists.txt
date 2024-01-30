@@ -46,6 +46,7 @@ set(PROJECT_SOURCES
         ${TS_FILES}
 
         # calibrate source file
+        findchessboardcorner.hpp
         monocalibrate.hpp
 )
 

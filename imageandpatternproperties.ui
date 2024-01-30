@@ -93,19 +93,32 @@
    <item>
     <widget class="QTabWidget" name="tabWidget_properties">
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
        <string>Tab 1</string>
       </attribute>
+      <widget class="QLabel" name="label_checker">
+       <property name="geometry">
+        <rect>
+         <x>370</x>
+         <y>20</y>
+         <width>131</width>
+         <height>121</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
       <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
-         <x>20</x>
-         <y>60</y>
-         <width>327</width>
-         <height>57</height>
+         <x>10</x>
+         <y>20</y>
+         <width>325</width>
+         <height>118</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -218,20 +231,70 @@
           </item>
          </layout>
         </item>
+        <item>
+         <layout class="QGridLayout" name="gridLayout_3">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>Number of Rows</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="lineEdit_chessbd_rows">
+            <property name="minimumSize">
+             <size>
+              <width>71</width>
+              <height>24</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>71</width>
+              <height>24</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_4">
+            <property name="text">
+             <string>Number of Colums</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="lineEdit_chessbd_cols">
+            <property name="minimumSize">
+             <size>
+              <width>71</width>
+              <height>24</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>71</width>
+              <height>24</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
        </layout>
-      </widget>
-      <widget class="QLabel" name="label_checker">
-       <property name="geometry">
-        <rect>
-         <x>380</x>
-         <y>40</y>
-         <width>131</width>
-         <height>121</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
       </widget>
      </widget>
      <widget class="QWidget" name="tab_2">
@@ -241,8 +304,8 @@
       <widget class="QLabel" name="label_asymImg">
        <property name="geometry">
         <rect>
-         <x>380</x>
-         <y>40</y>
+         <x>370</x>
+         <y>20</y>
          <width>131</width>
          <height>121</height>
         </rect>
@@ -254,8 +317,8 @@
       <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
-         <x>20</x>
-         <y>60</y>
+         <x>10</x>
+         <y>20</y>
          <width>319</width>
          <height>92</height>
         </rect>
@@ -394,13 +457,13 @@
      </widget>
      <widget class="QWidget" name="tab_3">
       <attribute name="title">
-       <string>页</string>
+       <string>Tab 3</string>
       </attribute>
       <widget class="QLabel" name="label_synImg">
        <property name="geometry">
         <rect>
-         <x>380</x>
-         <y>40</y>
+         <x>370</x>
+         <y>20</y>
          <width>131</width>
          <height>121</height>
         </rect>
@@ -412,8 +475,8 @@
       <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
-         <x>20</x>
-         <y>60</y>
+         <x>10</x>
+         <y>20</y>
          <width>319</width>
          <height>92</height>
         </rect>
@@ -480,7 +543,7 @@
         <item>
          <layout class="QGridLayout" name="gridLayout_2">
           <item row="1" column="1">
-           <widget class="QLineEdit" name="lineEdit_colums">
+           <widget class="QLineEdit" name="lineEdit_sy_cols">
             <property name="minimumSize">
              <size>
               <width>71</width>
@@ -496,7 +559,7 @@
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QLineEdit" name="lineEdit_rows">
+           <widget class="QLineEdit" name="lineEdit_sy_rows">
             <property name="minimumSize">
              <size>
               <width>71</width>

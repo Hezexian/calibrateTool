@@ -3,6 +3,9 @@
 
 #include <QMainWindow>
 #include <QStringList>
+#include "imageandpatternproperties.hpp"
+#include "findchessboardcorner.hpp"
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -22,8 +25,21 @@ public:
     void saveLastOpenedDirectory(const QString& directory);
 
 
+    // find (detect) chessboard corner
+    using properties = ImageAndPatternProperties::properties;
+    void findChessBoard(properties props);
+
+    // Detection Results Dialog
+    using result_ckbd = FindChessboardCorner::result_ckbd;
+    void detectResDialog(const result_ckbd&);
+
+
 private:
+    QStringList m_fileNames;
     Ui::MainWindow *ui;
+
+    properties m_props;
+    result_ckbd m_res_ckbd;
 
 signals:
 

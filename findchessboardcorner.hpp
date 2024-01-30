@@ -31,7 +31,9 @@ public:
         uint partiallyDetectedPatterns = 0;
         uint rejectedImg = 0;
 
-        vector<Mat> validImgs;
+        vector<Mat> validImgs; // 有效图像
+        vector<Mat> invalidImgs; // 无效图像
+        vector<Mat> cornersImg; // 绘制角点后的图像
         std::vector<std::vector<cv::Point3f>> objectPoints;
         std::vector<std::vector<cv::Point2f>> imagePoints;
     }result_ckbd;
@@ -43,11 +45,12 @@ public:
 
 
     /**
-     * @brief 棋盘格标定板角点查找
+     * @brief (第一种标定板的交点查找)棋盘格标定板角点查找
      * @param fileNames 图像路径合集
      * @return 角点查找结果
      */
     result_ckbd checherboard(const QStringList& fileNames);
+
 
 
 
@@ -106,6 +109,8 @@ FindChessboardCorner::checherboard(const QStringList &fileNames)
     }
 
     vector<Mat> validImgs;    //有效图像
+    vector<Mat> invalidImgs; // 无效图像
+    vector<Mat> cornersImg; // 绘制角点的图像
     std::vector<std::vector<cv::Point3f>> objectPoints;
     std::vector<std::vector<cv::Point2f>> imagePoints;
     /* 构建棋盘格角点的世界坐标 */
@@ -123,7 +128,7 @@ FindChessboardCorner::checherboard(const QStringList &fileNames)
         if(!img.empty())
             imgs.push_back(img);
     }
-
+    /* find corners */
     for(auto &img : imgs){
         cv::Mat gray;
         cv::cvtColor(img, gray, cv::COLOR_BGR2GRAY);
@@ -133,10 +138,16 @@ FindChessboardCorner::checherboard(const QStringList &fileNames)
 
         /* 如果找到角点，添加到标定数据中 */
         if (found) {
+            Mat img_corner = img.clone();
+            cv::drawChessboardCorners(img_corner, cv::Size(m_props.cols, m_props.rows), corners, found);
+            cornersImg.push_back(img_corner);
+
             validImgs.push_back(img);
             imagePoints.push_back(corners);
             objectPoints.resize(imagePoints.size(), objectPoints[0]); // 复制世界坐标
-//            cv::drawChessboardCorners(img, cv::Size(m_chessbd_cols, m_chessbd_rows), corners, found);
+        }
+        else{
+            invalidImgs.push_back(img);
         }
     }
 
@@ -151,7 +162,11 @@ FindChessboardCorner::checherboard(const QStringList &fileNames)
     res.addedImg = m_addedImg;
     res.rejectedImg = m_rejectedImg;
     res.partiallyDetectedPatterns = m_partiallyDetectedPatterns;
+
     res.validImgs = validImgs;
+    res.invalidImgs = invalidImgs;
+    res.cornersImg = cornersImg;
+
     res.imagePoints = imagePoints;
     res.objectPoints = objectPoints;
     return res;

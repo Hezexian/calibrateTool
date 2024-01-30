@@ -5,6 +5,8 @@
 #include <QStringList>
 #include "imageandpatternproperties.hpp"
 #include "findchessboardcorner.hpp"
+#include <QListWidgetItem>
+
 
 
 QT_BEGIN_NAMESPACE
@@ -33,6 +35,12 @@ public:
     using result_ckbd = FindChessboardCorner::result_ckbd;
     void detectResDialog(const result_ckbd&);
 
+    // 标定图像列表(data browser)
+    void tab_dataBrowser();
+
+    // Image tab(image 标签)
+    void tab_image(int index);
+
 
 private:
     QStringList m_fileNames;
@@ -42,7 +50,8 @@ private:
     result_ckbd m_res_ckbd;
 
 signals:
-
+    // find chessboard corner 任务完成
+    void foundCorners();
 
 public slots:
     void addImages(int index);

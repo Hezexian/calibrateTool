@@ -9,6 +9,10 @@
 #include <QMessageBox>
 #include <QSettings>
 #include <QDir>
+#include <QDialog>
+#include <QListWidget>
+#include <QPixmap>
+#include "imageFormat.hpp"
 
 #include <vector>
 
@@ -47,6 +51,15 @@ MainWindow::MainWindow(QWidget *parent)
     view->setRowHidden(0,true);
     connect(ui->comboBox_addImages, QOverload<int>::of(&QComboBox::activated), this, &MainWindow::addImages);
 
+    //Data Browser
+    ui->tabWidget_dataBrowser->setTabText(0,tr("Data Browser"));
+    connect(this,&MainWindow::foundCorners,this,[=](){
+        this->tab_dataBrowser();
+    });
+
+    //Image (draw chessboard corners)
+    ui->tabWidget_showImg->setTabText(0,tr("Image"));
+
 
 }
 
@@ -67,16 +80,13 @@ void MainWindow::addImages(int idx)
         // set checkboard params
         if(m_fileNames.size() != 0){
             ImageAndPatternProperties *imageAndPatternPropertiesDialog = new ImageAndPatternProperties();
-            imageAndPatternPropertiesDialog->show();
             connect(imageAndPatternPropertiesDialog,&ImageAndPatternProperties::selectedPattern,
                     this,[=](ImageAndPatternProperties::properties props){
-                m_props = props;
-                this->findChessBoard(props);});
+                        m_props = props;
+                        this->findChessBoard(props);});
+            imageAndPatternPropertiesDialog->exec();
+
         }
-        /* TODO
-         * get checkboard params and corner detect
-         *
-         * */
 
     }
 
@@ -127,18 +137,41 @@ void MainWindow::detectResDialog(const result_ckbd &res)
     drDialog->setWindowTitle(tr("Detection Results"));
     drDialog->setFixedSize(QSize(500,200));
 
+    /* yes button*/
     QPushButton *yesbtn = new QPushButton(drDialog);
     yesbtn->setGeometry(207,153,72,26);
     yesbtn->setText(tr("yes"));
-    connect(yesbtn,&QPushButton::clicked,drDialog,[=](){drDialog->close();});
+    connect(yesbtn,&QPushButton::clicked,drDialog,[=](){
+        drDialog->close();
+        emit foundCorners();
+    });
 
+    /* view images button*/
     QPushButton *viewbtn = new QPushButton(drDialog);
     viewbtn->setGeometry(370,119,106,26);
     viewbtn->setText(tr("view images"));
     connect(viewbtn,&QPushButton::clicked,drDialog,[=](){
-        /* 浏览标定图像的窗口 */
-        // TODO: 浏览标定图像的窗口 2024/1/30
+        /* 展示没有检查到corner的标定板照片 */
+        // Rejected Images
+        QDialog *rejImgDlog = new QDialog(drDialog);
+        rejImgDlog->setWindowTitle(tr("Rejected Images"));
+        rejImgDlog->setFixedSize(QSize(1002,790));
+        //有个bug，×掉后mainwindow会最小化，故暂时禁用×
+        rejImgDlog->setWindowFlags(rejImgDlog->windowFlags() & ~Qt::WindowCloseButtonHint );
+        QLabel *tmp = new QLabel("有个bug，×掉后mainwindow\n会最小化，故暂时禁用×",rejImgDlog);
+        tmp->setGeometry(821,10,200,100);
 
+        QLabel *label0 = new QLabel(rejImgDlog); // 展示被删除的图像
+        // TODO:将res.rejectedImg合并成一张图片，转成QPixmap后在rejImgDlog(264,93)展现
+
+        QPushButton *yesbtn = new QPushButton(rejImgDlog);
+        yesbtn->setText(tr("yes"));
+        yesbtn->setGeometry(464,757,72,26);
+        connect(yesbtn,&QPushButton::clicked,
+                rejImgDlog,[=](){rejImgDlog->close();drDialog->exec();});
+
+        drDialog->hide();
+        rejImgDlog->exec();
     });
 
 
@@ -161,6 +194,48 @@ void MainWindow::detectResDialog(const result_ckbd &res)
 
 
 
-    drDialog->show();
+    drDialog->exec();
+
+}
+
+/** Data Brower 设计
+ * @brief MainWindow::tab_dataBrowser
+ */
+void MainWindow::tab_dataBrowser()
+{
+    QListWidget *imgList = new QListWidget(ui->tab_dataBrowser);
+
+    /* show draw chessboard images in IMAGE TAB*/
+    connect(imgList,&QListWidget::itemClicked,this,[=](QListWidgetItem *item){
+        int idx = imgList->row(item);
+        tab_image(idx);
+    });
+
+    /* add images into data browser */
+    imgList->setGeometry(0,0,ui->tab_dataBrowser->width(),ui->tab_dataBrowser->height());
+    imgList->setIconSize(QSize(imgList->width(),80));
+    imgList->setSpacing(5);
+    imgList->setResizeMode(QListView::Adjust);//适应布局调整
+    imgList->setMovement(QListView::Static);//不能移动
+
+    std::size_t cnt = 0;
+    for(const auto & img : m_res_ckbd.validImgs){
+        QListWidgetItem *item = new QListWidgetItem(imgList);
+        item->setSizeHint(QSize(imgList->width(),80));
+
+        // 创建图片并设置给ListWidgetItem
+        QPixmap *pixmap = new QPixmap(Mat2Pixmap(img));
+        pixmap->scaled(QSize(img.size().height*80/img.size().width, 80), Qt::KeepAspectRatio);
+        item->setIcon(QIcon(*pixmap));
+        item->setText(QString::number(cnt));
+        ++cnt;
+        imgList->addItem(item);
+
+    }
+    imgList->show();
+}
+
+void MainWindow::tab_image(int index)
+{
 
 }

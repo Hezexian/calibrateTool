@@ -45,6 +45,9 @@ set(PROJECT_SOURCES
         # translate file
         ${TS_FILES}
 
+        # utils
+        imageFormat.hpp
+
         # calibrate source file
         findchessboardcorner.hpp
         monocalibrate.hpp

@@ -227,7 +227,7 @@
             <string>Options</string>
            </property>
           </widget>
-          <widget class="QWidget" name="">
+          <widget class="QWidget" name="layoutWidget">
            <property name="geometry">
             <rect>
              <x>20</x>
@@ -411,41 +411,37 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
-       <widget class="QTabWidget" name="tabWidget_4">
+       <widget class="QTabWidget" name="tabWidget_dataBrowser">
         <property name="minimumSize">
          <size>
           <width>181</width>
           <height>421</height>
          </size>
         </property>
-        <widget class="QWidget" name="tab_7">
+        <property name="currentIndex">
+         <number>0</number>
+        </property>
+        <widget class="QWidget" name="tab_dataBrowser">
          <attribute name="title">
           <string>Tab 1</string>
-         </attribute>
-        </widget>
-        <widget class="QWidget" name="tab_8">
-         <attribute name="title">
-          <string>Tab 2</string>
          </attribute>
         </widget>
        </widget>
       </item>
       <item>
-       <widget class="QTabWidget" name="tabWidget">
+       <widget class="QTabWidget" name="tabWidget_showImg">
         <property name="minimumSize">
          <size>
           <width>691</width>
           <height>421</height>
          </size>
         </property>
+        <property name="currentIndex">
+         <number>0</number>
+        </property>
         <widget class="QWidget" name="tab">
          <attribute name="title">
           <string>Tab 1</string>
-         </attribute>
-        </widget>
-        <widget class="QWidget" name="tab_2">
-         <attribute name="title">
-          <string>Tab 2</string>
          </attribute>
         </widget>
        </widget>

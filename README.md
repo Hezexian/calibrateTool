@@ -3,23 +3,37 @@
 ![main window](./src/readmeFile/Snipaste_2024-01-05_12-06-38.png)
 
 
-施工中...
+标定板属性设定
+
+
+![image-20240130171735942](./src/readmeFile/checkboard1.png)
+
+
+张征友标定板角点检测结果
+
+
+![detectResults](./src/readmeFile/detectResults.png)
+
+
+
+⛓ 施工中...
+
 ## TODO 
-- [...]单目相机标定
+- [⏱]单目相机标定
 - []双目相机标定
 - []鱼眼相机标定
 - []调整标定图像
-- [...]输出标定参数
-- [...]输出读取参数的代码c++\python
+- [⏱]输出标定参数
+- [⏱]输出读取参数的代码c++\python
 - []...
 
 # A MATLAB-calibrate-APP-Like calibrate Tool based on Qt&OpenCV
 building...
 ## TODO
-- [...]mono calibrate
+- [⏱]mono calibrate
 - []stereo calibrate
 - []fisheye
 - []adjust calibrate images
-- [...]export calibrate param by yml or json
-- [...]generate c++ or python code to import calibrate param 
+- [⏱]export calibrate param by yml or json
+- [⏱]generate c++ or python code to import calibrate param 
 - []more...

@@ -4,6 +4,7 @@
 #include <QComboBox>
 #include <QListView>
 #include <QDebug>
+#include <QThread>
 //#include <QOverload>
 #include <QFileDialog>
 #include <QMessageBox>
@@ -13,6 +14,7 @@
 #include <QListWidget>
 #include <QPixmap>
 #include "imageFormat.hpp"
+#include <QVBoxLayout>
 
 #include <vector>
 
@@ -54,7 +56,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     //Data Browser
     ui->tabWidget_dataBrowser->setTabText(0,tr("Data Browser"));
-    connect(this,&MainWindow::foundCorners,this,[=](){
+    connect(this,&MainWindow::foundCornersSig,this,[=](){
         this->tab_dataBrowser();
     });
 
@@ -62,13 +64,19 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tabWidget_showImg->setTabText(0,tr("Image"));
 
     // calibrate button
+    if(m_fileNames.empty())
+        ui->pushButton_calibrate->setDisabled(true);
     connect(ui->pushButton_calibrate,&QPushButton::clicked,this,&MainWindow::pushButtonCalibrateClicked);
 
-    // Show Distorted button
+    // Show unDistorted button
+    if(m_monoCaliParam.cameraMatrix.empty())
+        ui->pushButton_showUndistorted->setDisabled(true);
     connect(ui->pushButton_showUndistorted,&QPushButton::clicked,this,&MainWindow::pushButtonShowUndistortedClicked);
 
     // export button
-//    connect(ui->pushButton_export,&QPushButton::clicked,this,[=](){emit this->pushButtonExportClicked();});
+    if(m_monoCaliParam.cameraMatrix.empty())
+        ui->pushButton_export->setDisabled(true);
+    connect(ui->pushButton_export,&QPushButton::clicked,this,[=](){emit this->pushButtonExportClickedSig();});
 
 
 
@@ -140,6 +148,9 @@ void MainWindow::findChessBoard(const properties props)
     res_ckbd = find.checherboard(this->m_fileNames);
     m_res_ckbd = res_ckbd;
 
+    if(!res_ckbd.validImgs.empty())
+        ui->pushButton_calibrate->setDisabled(false);
+
     this->detectResDialog(res_ckbd);
 }
 
@@ -155,7 +166,7 @@ void MainWindow::detectResDialog(const result_ckbd &res)
     yesbtn->setText(tr("yes"));
     connect(yesbtn,&QPushButton::clicked,drDialog,[=](){
         drDialog->close();
-        emit foundCorners();
+        emit foundCornersSig();
     });
 
     /* view images button*/
@@ -202,8 +213,6 @@ void MainWindow::detectResDialog(const result_ckbd &res)
     label1->setGeometry(21,46,221,21);label5->setGeometry(334,46,21,21);
     label2->setGeometry(21,65,221,21);label6->setGeometry(334,65,21,21);
     label3->setGeometry(21,89,221,21);label7->setGeometry(334,89,21,21);
-
-
 
 
     drDialog->exec();
@@ -273,13 +282,38 @@ void MainWindow::tab_image(int index)
 
 void MainWindow::pushButtonCalibrateClicked()
 {
-    MonoCalibrate monocali(m_res_ckbd);
-    CaliParam caliParam = monocali.calibrate();
-    m_caliParam = caliParam;
+    /* 等待框 */
+    QDialog *waitingDia = new QDialog(this);
+    waitingDia->setWindowFlags(waitingDia->windowFlags() & ~Qt::WindowCloseButtonHint );
+    waitingDia->setFixedSize(500,200);
+    waitingDia->setWindowTitle(tr("waiting for calibrating ..."));
+    waitingDia->show();
+    ui->pushButton_calibrate->setDisabled(true);
 
-//    connect(this,&MainWindow::pushButton_export_clicked,this,[&](){
-//        monocali.exportParams();
-//    });
+    /* 标定程序 */
+    QThread *caliThread = new QThread(this);
+    MonoCalibrate *monocali = new MonoCalibrate(m_res_ckbd);
+    monocali->moveToThread(caliThread);
+    caliThread->start();
+    connect(monocali,&MonoCalibrate::CaliStarted,monocali,&MonoCalibrate::calibrate);
+    emit monocali->CaliStarted();
+
+    /* 结束标定 */
+    connect(monocali,&MonoCalibrate::caliFinished,this,[=](CaliParam caliParam){
+        m_monoCaliParam = caliParam;
+            ui->pushButton_showUndistorted->setDisabled(false);
+            ui->pushButton_export->setDisabled(false);
+            waitingDia->close();
+            ui->pushButton_calibrate->setDisabled(false);
+            monocali->deleteLater();
+            caliThread->exit();
+    });
+
+    /* export button */
+    connect(this,&MainWindow::pushButtonExportClickedSig,this,[=](){
+        MonoCalibrate::exportParams(m_monoCaliParam);
+    });
+
 
 }
 

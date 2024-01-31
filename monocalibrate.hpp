@@ -10,6 +10,7 @@
 #include "findchessboardcorner.hpp"
 #include <QFileDialog>
 #include <QString>
+#include <QThread>
 
 using namespace std;
 using namespace cv;
@@ -19,18 +20,20 @@ class MonoCalibrate : public QObject
     Q_OBJECT
 public:
     /* 类的定义 */
-    typedef struct CaliParam{
+    struct CaliParam{
         cv::Mat cameraMatrix, distCoeffs;
         std::vector<cv::Mat> rvecs, tvecs;
         std::vector<double> stdDeviationsIntrinsics,stdDeviationsExtrinsics;
         std::vector<double> perViewErrors;
         double rms;
-    }CaliParam;
+    };
     using result_ckbd = FindChessboardCorner::result_ckbd;
 
 public:
-    explicit MonoCalibrate(result_ckbd res_ckbd,QObject *parent = nullptr)
+    MonoCalibrate(result_ckbd res_ckbd,QObject *parent = nullptr)
         :m_res_ckbd{res_ckbd}{};
+    MonoCalibrate(const MonoCalibrate &caliobj)
+        :m_res_ckbd(caliobj.m_res_ckbd),m_caliparam(caliobj.m_caliparam){ };
 
     /** 张正友标定法功能函数
      * @brief calibrate
@@ -48,7 +51,7 @@ public:
     /** 导出标定结果
      * @brief exportParams
      */
-    void exportParams() const;
+    static void exportParams(CaliParam &caliparam) ;
 
 
 
@@ -58,12 +61,23 @@ private:
 
 
 signals:
+    /** 标定开始信号
+     * @brief CaliStarted
+     */
+    void CaliStarted();
+
+    /** 标定结束信号
+     * @brief caliFinished
+     */
+    void caliFinished(CaliParam);
+
 
 };
 
 inline MonoCalibrate::CaliParam
 MonoCalibrate::calibrate()
 {
+
     cv::Mat cameraMatrix, distCoeffs;
     std::vector<cv::Mat> rvecs, tvecs;
     std::vector<double> stdDeviationsIntrinsics,stdDeviationsExtrinsics;
@@ -80,6 +94,7 @@ MonoCalibrate::calibrate()
                         stdDeviationsIntrinsics,stdDeviationsExtrinsics,
                         perViewErrors,0,criteria);
 
+
     CaliParam caliparam;
     caliparam.cameraMatrix = cameraMatrix;
     caliparam.distCoeffs = distCoeffs;
@@ -90,6 +105,8 @@ MonoCalibrate::calibrate()
     caliparam.perViewErrors = perViewErrors;
     caliparam.rms = rms;
     m_caliparam = caliparam;
+
+    emit caliFinished(m_caliparam);
     return caliparam;
 }
 
@@ -100,9 +117,10 @@ inline Mat MonoCalibrate::undistort(const Mat &srcImg)
     return undistortedImage;
 }
 
-inline void MonoCalibrate::exportParams() const
+inline void MonoCalibrate::exportParams(CaliParam &caliparam)
 {
-    // 保存标定结果
+
+
     QString folderPath = QFileDialog::getExistingDirectory(
         nullptr,
         tr("choose folder"),
@@ -111,15 +129,44 @@ inline void MonoCalibrate::exportParams() const
         );
     QDir directory(folderPath);
     cv::FileStorage fs(directory.filePath("calibration_result.yml").toStdString(), cv::FileStorage::WRITE);
-    fs << "cameraMatrix" << m_caliparam.cameraMatrix;
-    fs << "distCoeffs" << m_caliparam.distCoeffs;
-    fs << "rvecs"<<m_caliparam.rvecs;
-    fs << "tvecs"<<m_caliparam.tvecs;
-    fs << "stdDeviationsIntrinsics"<<m_caliparam.stdDeviationsIntrinsics;
-    fs << "stdDeviationsExtrinsics"<<m_caliparam.stdDeviationsExtrinsics;
-    fs << "perViewErrors"<<m_caliparam.perViewErrors;
-    fs << "rms"<<m_caliparam.rms;
-    fs << "rvecs"<<m_caliparam.rvecs;
+    fs << "cameraMatrix" << caliparam.cameraMatrix;
+    fs << "distCoeffs" << caliparam.distCoeffs;
+    fs << "rms"<<caliparam.rms;
+
+    // 写入 rvecs 向量
+    fs << "rvecs" << "["; // 开始写入向量
+    for (const cv::Mat& rvec : caliparam.rvecs) {
+        fs << rvec;
+    }
+    fs << "]"; // 结束写入向量
+
+    // 写入 tvecs 向量
+    fs << "tvecs" << "["; // 开始写入向量
+    for (const cv::Mat& tvec : caliparam.tvecs) {
+        fs << tvec;
+    }
+    fs << "]"; // 结束写入向量
+
+    // 写入 stdDeviationsIntrinsics 向量
+    fs << "stdDeviationsIntrinsics" << "["; // 开始写入向量
+    for (double stdDevI : caliparam.stdDeviationsIntrinsics) {
+        fs << stdDevI;
+    }
+    fs << "]"; // 结束写入向量
+
+    // 写入 stdDeviationsExtrinsics 向量
+    fs << "stdDeviationsExtrinsics" << "["; // 开始写入向量
+    for (double stdDevE : caliparam.stdDeviationsExtrinsics) {
+        fs << stdDevE;
+    }
+    fs << "]"; // 结束写入向量
+
+    // 写入 perViewErrors 向量
+    fs << "perViewErrors" << "["; // 开始写入向量
+    for (double pError : caliparam.perViewErrors) {
+        fs << pError;
+    }
+    fs << "]"; // 结束写入向量
 
     fs.release();
 }

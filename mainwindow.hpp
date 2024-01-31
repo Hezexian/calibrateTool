@@ -52,18 +52,19 @@ private:
 
     properties m_props; // 标定板属性
     result_ckbd m_res_ckbd;//角点查找结果
-    CaliParam m_caliParam; //标定的相机参数
+    CaliParam m_monoCaliParam; //标定的相机参数
 
 signals:
     // find chessboard corner 任务完成
-    void foundCorners();
+    void foundCornersSig();
+    void pushButtonExportClickedSig();
+
 
 
 public slots:
     void addImages(int index);
     void pushButtonCalibrateClicked();
     void pushButtonShowUndistortedClicked();
-//    void pushButtonExportClicked();
 
 };
 #endif // MAINWINDOW_HPP

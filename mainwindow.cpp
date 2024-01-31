@@ -5,6 +5,7 @@
 #include <QListView>
 #include <QDebug>
 #include <QThread>
+#include <QMovie>
 //#include <QOverload>
 #include <QFileDialog>
 #include <QMessageBox>
@@ -180,9 +181,10 @@ void MainWindow::detectResDialog(const result_ckbd &res)
         rejImgDlog->setWindowTitle(tr("Rejected Images"));
         rejImgDlog->setFixedSize(QSize(1002,790));
         //有个bug，×掉后mainwindow会最小化，故暂时禁用×
-        rejImgDlog->setWindowFlags(rejImgDlog->windowFlags() & ~Qt::WindowCloseButtonHint );
-        QLabel *tmp = new QLabel("有个bug，×掉后mainwindow\n会最小化，故暂时禁用×",rejImgDlog);
-        tmp->setGeometry(821,10,200,100);
+        rejImgDlog->setWindowFlags(Qt::SplashScreen);
+//        rejImgDlog->setWindowFlags(rejImgDlog->windowFlags() & ~Qt::WindowCloseButtonHint );
+//        QLabel *tmp = new QLabel("有个bug，×掉后mainwindow\n会最小化，故暂时禁用×",rejImgDlog);
+//        tmp->setGeometry(821,10,200,100);
 
         QLabel *label0 = new QLabel(rejImgDlog); // 展示被删除的图像
         // TODO:将res.rejectedImg合并成一张图片，转成QPixmap后在rejImgDlog(264,93)展现
@@ -285,10 +287,31 @@ void MainWindow::pushButtonCalibrateClicked()
     /* 等待框 */
     QDialog *waitingDia = new QDialog(this);
     waitingDia->setWindowFlags(waitingDia->windowFlags() & ~Qt::WindowCloseButtonHint );
-    waitingDia->setFixedSize(500,200);
+    waitingDia->setFixedSize(300,200);
     waitingDia->setWindowTitle(tr("waiting for calibrating ..."));
+
+    QLabel* label = new QLabel(waitingDia);
+    label->setFixedSize(300, 200);
+    QMovie *movie = new QMovie(":/src/src/waiting-7579_256.gif");
+    label->setMovie(movie);
+    movie->start();
+
+    QVBoxLayout* layout = new QVBoxLayout(waitingDia);
+    layout->addWidget(label);
+
+    waitingDia->setLayout(layout);
+    label->show();
     waitingDia->show();
-    ui->pushButton_calibrate->setDisabled(true);
+
+    /* 等待标定时禁用所有按钮 */
+    QList<QPushButton*> buttons = this->findChildren<QPushButton*>();
+    for (QPushButton* button : buttons) {
+        button->setDisabled(true);
+    }
+    ui->comboBox_addImages->setDisabled(true);
+    ui->radioButton_standard->setDisabled(true);
+    ui->radioButton_fisheye->setDisabled(true);
+    ui->doubleSpinBox->setDisabled(true);
 
     /* 标定程序 */
     QThread *caliThread = new QThread(this);
@@ -300,16 +323,27 @@ void MainWindow::pushButtonCalibrateClicked()
 
     /* 结束标定 */
     connect(monocali,&MonoCalibrate::caliFinished,this,[=](CaliParam caliParam){
+        // 保存标定结果
         m_monoCaliParam = caliParam;
-            ui->pushButton_showUndistorted->setDisabled(false);
-            ui->pushButton_export->setDisabled(false);
-            waitingDia->close();
-            ui->pushButton_calibrate->setDisabled(false);
-            monocali->deleteLater();
-            caliThread->exit();
+
+        // 解禁按钮
+        ui->pushButton_showUndistorted->setDisabled(false);
+        ui->pushButton_export->setDisabled(false);
+        ui->comboBox_addImages->setDisabled(false);
+        ui->radioButton_standard->setDisabled(false);
+        ui->radioButton_fisheye->setDisabled(false);
+        ui->doubleSpinBox->setDisabled(false);
+        for (QPushButton* button : buttons) {
+            button->setDisabled(false);
+        }
+
+        // 释放资源
+        waitingDia->close();
+        monocali->deleteLater();
+        caliThread->exit();
     });
 
-    /* export button */
+    /* export button （导出按钮） */
     connect(this,&MainWindow::pushButtonExportClickedSig,this,[=](){
         MonoCalibrate::exportParams(m_monoCaliParam);
     });

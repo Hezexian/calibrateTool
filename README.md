@@ -16,24 +16,30 @@
 
 
 
-⛓ 施工中...
+## ⛓ 施工中...
 
 ## TODO 
 - [⏱]单目相机标定
+    - [✅] 张正友标定板
+    - [] asym
+    - [] sym
 - []双目相机标定
 - []鱼眼相机标定
-- []调整标定图像
-- [⏱]输出标定参数
+- [⏱]调整标定图像
+- [✅]输出单目标定参数
 - [⏱]输出读取参数的代码c++\python
 - []...
 
 # A MATLAB-calibrate-APP-Like calibrate Tool based on Qt&OpenCV
-building...
+## ⛓building...
 ## TODO
-- [⏱]mono calibrate
+- [✅]mono calibrate
+    - [✅] checkerboard
+    - [] asym
+    - [] sym
 - []stereo calibrate
 - []fisheye
-- []adjust calibrate images
-- [⏱]export calibrate param by yml or json
+- [⏱]adjust calibrate images
+- [✅]export mono calibrate param
 - [⏱]generate c++ or python code to import calibrate param 
 - []more...

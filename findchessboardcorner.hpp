@@ -33,7 +33,7 @@ public:
 
         vector<Mat> validImgs; // 有效图像
         vector<Mat> invalidImgs; // 无效图像
-        vector<Mat> cornersImg; // 绘制角点后的图像
+        vector<Mat> cornersImgs; // 绘制角点后的图像
         std::vector<std::vector<cv::Point3f>> objectPoints;
         std::vector<std::vector<cv::Point2f>> imagePoints;
     }result_ckbd;
@@ -110,13 +110,14 @@ FindChessboardCorner::checherboard(const QStringList &fileNames)
 
     vector<Mat> validImgs;    //有效图像
     vector<Mat> invalidImgs; // 无效图像
-    vector<Mat> cornersImg; // 绘制角点的图像
+    vector<Mat> cornersImgs; // 绘制角点的图像
     std::vector<std::vector<cv::Point3f>> objectPoints;
     std::vector<std::vector<cv::Point2f>> imagePoints;
     /* 构建棋盘格角点的世界坐标 */
+    vector<cv::Point3f> objectcorners;
     for (int i = 0; i < m_props.rows; ++i) {
         for (int j = 0; j < m_props.cols; ++j) {
-            objectPoints.push_back({cv::Point3f(j * chessbd_sz, i * chessbd_sz, 0)});
+            objectcorners.push_back({cv::Point3f(j * chessbd_sz, i * chessbd_sz, 0)});
         }
     }
 
@@ -140,11 +141,11 @@ FindChessboardCorner::checherboard(const QStringList &fileNames)
         if (found) {
             Mat img_corner = img.clone();
             cv::drawChessboardCorners(img_corner, cv::Size(m_props.cols, m_props.rows), corners, found);
-            cornersImg.push_back(img_corner);
+            cornersImgs.push_back(img_corner);
 
             validImgs.push_back(img);
             imagePoints.push_back(corners);
-            objectPoints.resize(imagePoints.size(), objectPoints[0]); // 复制世界坐标
+            objectPoints.push_back(objectcorners);
         }
         else{
             invalidImgs.push_back(img);
@@ -165,7 +166,7 @@ FindChessboardCorner::checherboard(const QStringList &fileNames)
 
     res.validImgs = validImgs;
     res.invalidImgs = invalidImgs;
-    res.cornersImg = cornersImg;
+    res.cornersImgs = cornersImgs;
 
     res.imagePoints = imagePoints;
     res.objectPoints = objectPoints;

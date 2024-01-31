@@ -33,6 +33,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     /*mainwindow design*/
     this->setWindowTitle(tr("calibrate Tool"));
+    this->setFixedSize(1163,670);
     // tabwiddet_tool design
     ui->tabWidget_tool->setTabText(0,tr("mono calibrate"));
     ui->tabWidget_tool->setTabText(1,tr("stereo calibrate"));
@@ -59,6 +60,16 @@ MainWindow::MainWindow(QWidget *parent)
 
     //Image (draw chessboard corners)
     ui->tabWidget_showImg->setTabText(0,tr("Image"));
+
+    // calibrate button
+    connect(ui->pushButton_calibrate,&QPushButton::clicked,this,&MainWindow::pushButtonCalibrateClicked);
+
+    // Show Distorted button
+    connect(ui->pushButton_showUndistorted,&QPushButton::clicked,this,&MainWindow::pushButtonShowUndistortedClicked);
+
+    // export button
+//    connect(ui->pushButton_export,&QPushButton::clicked,this,[=](){emit this->pushButtonExportClicked();});
+
 
 
 }
@@ -108,6 +119,7 @@ void MainWindow::addImages(int idx)
         });
     }
 }
+
 
 // Get the last opened directory 获取上一次打开的目录
 QString MainWindow::getLastOpenedDirectory() {
@@ -233,9 +245,46 @@ void MainWindow::tab_dataBrowser()
 
     }
     imgList->show();
+
+    this->tab_image(0);
 }
 
+/** show "draw chessboard corner"
+ * @brief MainWindow::tab_image
+ * @param index
+ */
 void MainWindow::tab_image(int index)
+{
+    QPixmap *pixmap = new QPixmap(Mat2Pixmap(m_res_ckbd.cornersImgs[index]));
+    QLabel *imglab = new QLabel(ui->tab_showImg);
+    imglab->setPixmap(*pixmap);
+
+    // TODO:将图像以合适的大小缩放
+    // 暂时先填满
+    imglab->setFixedSize(ui->tab_showImg->size().width(),
+                         ui->tab_showImg->size().height());
+    //------------------------
+
+
+    imglab->show();
+
+
+}
+
+void MainWindow::pushButtonCalibrateClicked()
+{
+    MonoCalibrate monocali(m_res_ckbd);
+    CaliParam caliParam = monocali.calibrate();
+    m_caliParam = caliParam;
+
+//    connect(this,&MainWindow::pushButton_export_clicked,this,[&](){
+//        monocali.exportParams();
+//    });
+
+}
+
+void MainWindow::pushButtonShowUndistortedClicked()
 {
 
 }
+

@@ -47,6 +47,7 @@ set(PROJECT_SOURCES
 
         # utils
         imageFormat.hpp
+        export.hpp
 
         # calibrate source file
         findchessboardcorner.hpp

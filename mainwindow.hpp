@@ -6,6 +6,7 @@
 #include "imageandpatternproperties.hpp"
 #include "findchessboardcorner.hpp"
 #include <QListWidgetItem>
+#include "monocalibrate.hpp"
 
 
 
@@ -41,20 +42,28 @@ public:
     // Image tab(image 标签)
     void tab_image(int index);
 
+    // calibrate btn
+    using CaliParam = MonoCalibrate::CaliParam;
+
 
 private:
     QStringList m_fileNames;
     Ui::MainWindow *ui;
 
-    properties m_props;
-    result_ckbd m_res_ckbd;
+    properties m_props; // 标定板属性
+    result_ckbd m_res_ckbd;//角点查找结果
+    CaliParam m_caliParam; //标定的相机参数
 
 signals:
     // find chessboard corner 任务完成
     void foundCorners();
 
+
 public slots:
     void addImages(int index);
+    void pushButtonCalibrateClicked();
+    void pushButtonShowUndistortedClicked();
+//    void pushButtonExportClicked();
 
 };
 #endif // MAINWINDOW_HPP

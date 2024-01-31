@@ -439,7 +439,7 @@
         <property name="currentIndex">
          <number>0</number>
         </property>
-        <widget class="QWidget" name="tab">
+        <widget class="QWidget" name="tab_showImg">
          <attribute name="title">
           <string>Tab 1</string>
          </attribute>

@@ -71,13 +71,21 @@ MainWindow::MainWindow(QWidget *parent)
     // Show unDistorted button
     if(m_monoCaliParam.cameraMatrix.empty())
         ui->pushButton_showUndistorted->setDisabled(true);
-//    connect(ui->pushButton_showUndistorted,&QPushButton::clicked,this,&MainWindow::pushButtonShowUndistortedClicked);
+    connect(ui->pushButton_showUndistorted,&QPushButton::clicked,this,&MainWindow::pushButtonShowUndistortedClicked);
 
     // export button
     if(m_monoCaliParam.cameraMatrix.empty())
         ui->pushButton_export->setDisabled(true);
     connect(ui->pushButton_export,&QPushButton::clicked,this,[=](){emit this->pushButtonExportClickedSig();});
 
+    // Reprojection Errors
+    ui->tabWidget_ReprojectonError->setTabText(0,tr("Reprojection Errors"));
+
+    // Camera-centric
+    ui->tabWidget_centric->setTabText(0,tr("Camera-centric"));
+
+    // Pattern-centric
+    ui->tabWidget_centric->setTabText(1,tr("Pattern-centric"));
 
 
 }
@@ -228,13 +236,17 @@ void MainWindow::tab_dataBrowser()
     m_imgList = new QListWidget(ui->tab_dataBrowser);
     auto &imgList = m_imgList;
 
+    int idx = 0;
     /* show draw chessboard images in IMAGE TAB*/
-    connect(imgList,&QListWidget::itemClicked,this,[=](QListWidgetItem *item){
-        int idx = imgList->row(item);
+    connect(imgList,&QListWidget::itemClicked,this,[=](QListWidgetItem *item)mutable{
+        idx = imgList->row(item);
         tab_image(idx);
     });
 
     /* show undistorted image */
+    connect(this,&MainWindow::pushButtonShowUndistortedClickedSig,this,[=](){
+        tab_image(idx);
+    });
 
 
     /* add images into data browser */
@@ -260,7 +272,7 @@ void MainWindow::tab_dataBrowser()
     }
     imgList->show();
 
-    this->tab_image(0);
+    this->tab_image(idx);
 }
 
 /** show "draw chessboard corner"
@@ -269,7 +281,15 @@ void MainWindow::tab_dataBrowser()
  */
 void MainWindow::tab_image(int index)
 {
-    QPixmap *pixmap = new QPixmap(Mat2Pixmap(m_res_ckbd.cornersImgs[index]));
+    Mat img;
+    if(m_isUndistortShow){
+        img = m_res_ckbd.validImgs[index];
+        img = MonoCalibrate::undistort(img,m_monoCaliParam);
+    }
+    else{
+        img = m_res_ckbd.cornersImgs[index];
+    }
+    QPixmap *pixmap = new QPixmap(Mat2Pixmap(img));
     QLabel *imglab = new QLabel(ui->tab_showImg);
     imglab->setPixmap(*pixmap);
 
@@ -281,7 +301,6 @@ void MainWindow::tab_image(int index)
 
 
     imglab->show();
-
 
 }
 
@@ -356,6 +375,12 @@ void MainWindow::pushButtonCalibrateClicked()
 
 void MainWindow::pushButtonShowUndistortedClicked()
 {
-
+    if(m_isUndistortShow){
+        m_isUndistortShow = false;
+        emit pushButtonShowUndistortedClickedSig(m_isUndistortShow);
+    }else{
+        m_isUndistortShow = true;
+        emit pushButtonShowUndistortedClickedSig(m_isUndistortShow);
+    }
 }
 

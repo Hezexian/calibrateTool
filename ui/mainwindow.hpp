@@ -57,10 +57,13 @@ private:
     CaliParam m_monoCaliParam; //标定的相机参数
     QListWidget *m_imgList; //左侧图像列表
 
+    bool m_isUndistortShow = false; //image tab中是否展示矫正后的图像
+
 signals:
     // find chessboard corner 任务完成
     void foundCornersSig();
     void pushButtonExportClickedSig();
+    void pushButtonShowUndistortedClickedSig(bool);
 
 
 

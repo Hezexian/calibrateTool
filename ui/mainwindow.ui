@@ -449,27 +449,25 @@
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <widget class="QTabWidget" name="tabWidget_2">
+         <widget class="QTabWidget" name="tabWidget_ReprojectonError">
           <property name="minimumSize">
            <size>
             <width>251</width>
             <height>201</height>
            </size>
           </property>
+          <property name="currentIndex">
+           <number>0</number>
+          </property>
           <widget class="QWidget" name="tab_3">
            <attribute name="title">
             <string>Tab 1</string>
            </attribute>
           </widget>
-          <widget class="QWidget" name="tab_4">
-           <attribute name="title">
-            <string>Tab 2</string>
-           </attribute>
-          </widget>
          </widget>
         </item>
         <item>
-         <widget class="QTabWidget" name="tabWidget_3">
+         <widget class="QTabWidget" name="tabWidget_centric">
           <property name="minimumSize">
            <size>
             <width>251</width>

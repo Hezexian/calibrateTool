@@ -1,6 +1,8 @@
 #include "mainwindow.hpp"
 #include "./ui_mainwindow.h"
 
+#include "../calibrate/imageFormat.hpp"
+
 #include <QComboBox>
 #include <QListView>
 #include <QDebug>
@@ -14,11 +16,8 @@
 #include <QDialog>
 #include <QListWidget>
 #include <QPixmap>
-#include "imageFormat.hpp"
 #include <QVBoxLayout>
-
 #include <vector>
-
 #include <opencv2/opencv.hpp>
 
 using namespace std;

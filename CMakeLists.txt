@@ -19,39 +19,49 @@ if(OpenCV_FOUND)
 else()
   message(FATAL_ERROR "OpenCV not found")
 endif()
-###
 
+# Qt
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets LinguistTools)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools)
+###
 
-set(TS_FILES calibrateTool_en_US.ts calibrateTool_zh_CN.ts)
+# subDir
+add_subdirectory(ui)
+add_subdirectory(calibrate)
+set(UIDIR ${PROJECT_SOURCE_DIR}/ui)
+set(CALIDIR ${PROJECT_SOURCE_DIR}/calibrate)
+
+# trans
+set(TS_FILES ${UIDIR}/calibrateTool_en_US.ts ${UIDIR}/calibrateTool_zh_CN.ts)
 
 set(PROJECT_SOURCES
         main.cpp
 
+        # translate file
+        ${TS_FILES}
+
         # mainwindow
-        mainwindow.cpp
-        mainwindow.hpp
-        mainwindow.ui
+        ${UIDIR}/mainwindow.cpp
+        ${UIDIR}/mainwindow.hpp
+        ${UIDIR}/mainwindow.ui
 
         # image And Pattern Properties Dialog
-        imageandpatternproperties.hpp
-        imageandpatternproperties.cpp
-        imageandpatternproperties.ui
+        ${UIDIR}/imageandpatternproperties.hpp
+        ${UIDIR}/imageandpatternproperties.cpp
+        ${UIDIR}/imageandpatternproperties.ui
 
         # resource
         src.qrc
 
-        # translate file
-        ${TS_FILES}
+
 
         # utils
-        imageFormat.hpp
-        export.hpp
+        ${CALIDIR}/imageFormat.hpp
+        ${CALIDIR}/export.hpp
 
         # calibrate source file
-        findchessboardcorner.hpp
-        monocalibrate.hpp
+        ${CALIDIR}/findchessboardcorner.hpp
+        ${CALIDIR}/monocalibrate.hpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

@@ -4,10 +4,11 @@
 #ifndef MONOCALIBRATE_HPP
 #define MONOCALIBRATE_HPP
 
+#include "findchessboardcorner.hpp"
+
 #include <QObject>
 #include <opencv2/opencv.hpp>
 #include <vector>
-#include "findchessboardcorner.hpp"
 #include <QFileDialog>
 #include <QString>
 #include <QThread>

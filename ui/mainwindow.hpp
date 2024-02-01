@@ -1,12 +1,14 @@
 #ifndef MAINWINDOW_HPP
 #define MAINWINDOW_HPP
 
+#include "../calibrate/findchessboardcorner.hpp"
+#include "../calibrate/monocalibrate.hpp"
+#include "imageandpatternproperties.hpp"
+
+
 #include <QMainWindow>
 #include <QStringList>
-#include "imageandpatternproperties.hpp"
-#include "findchessboardcorner.hpp"
 #include <QListWidgetItem>
-#include "monocalibrate.hpp"
 
 
 

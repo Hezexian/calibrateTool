@@ -4,9 +4,10 @@
 #ifndef IMAGEANDPATTERNPROPERTIES_HPP
 #define IMAGEANDPATTERNPROPERTIES_HPP
 
+#include "./ui_imageandpatternproperties.h"
+
 #include <QDialog>
 #include <QPushButton>
-#include "./ui_imageandpatternproperties.h"
 
 
 namespace Ui {

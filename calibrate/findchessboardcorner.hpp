@@ -7,10 +7,11 @@
 #ifndef FINDCHESSBOARDCORNER_HPP
 #define FINDCHESSBOARDCORNER_HPP
 
+#include "../ui/imageandpatternproperties.hpp"
+
 #include <QObject>
 #include <opencv2/opencv.hpp>
 #include <vector>
-#include "imageandpatternproperties.hpp"
 #include <QDebug>
 
 using namespace std;

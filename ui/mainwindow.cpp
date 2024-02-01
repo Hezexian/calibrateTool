@@ -71,7 +71,7 @@ MainWindow::MainWindow(QWidget *parent)
     // Show unDistorted button
     if(m_monoCaliParam.cameraMatrix.empty())
         ui->pushButton_showUndistorted->setDisabled(true);
-    connect(ui->pushButton_showUndistorted,&QPushButton::clicked,this,&MainWindow::pushButtonShowUndistortedClicked);
+//    connect(ui->pushButton_showUndistorted,&QPushButton::clicked,this,&MainWindow::pushButtonShowUndistortedClicked);
 
     // export button
     if(m_monoCaliParam.cameraMatrix.empty())
@@ -225,13 +225,17 @@ void MainWindow::detectResDialog(const result_ckbd &res)
  */
 void MainWindow::tab_dataBrowser()
 {
-    QListWidget *imgList = new QListWidget(ui->tab_dataBrowser);
+    m_imgList = new QListWidget(ui->tab_dataBrowser);
+    auto &imgList = m_imgList;
 
     /* show draw chessboard images in IMAGE TAB*/
     connect(imgList,&QListWidget::itemClicked,this,[=](QListWidgetItem *item){
         int idx = imgList->row(item);
         tab_image(idx);
     });
+
+    /* show undistorted image */
+
 
     /* add images into data browser */
     imgList->setGeometry(0,0,ui->tab_dataBrowser->width(),ui->tab_dataBrowser->height());

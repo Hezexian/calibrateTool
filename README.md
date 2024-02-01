@@ -1,4 +1,7 @@
 # 基于Qt+OpenCV的仿照MATLAB的相机标定程序
+
+
+## 介绍
 功能仿照MATLAB的标定程序，输出可直接用opencv读取的标定文件
 ![main window](./src/readmeFile/Snipaste_2024-01-05_12-06-38.png)
 
@@ -15,10 +18,30 @@
 ![detectResults](./src/readmeFile/detectResults.png)
 
 
+## 代码结构
+```
+.
+├─3rdpart
+│  └─opencv-4.8.0
+├─calibrate
+│  └─`calibates functions source code`
+├─ui
+│  └─`ui source code`
+│─qrc
+│─CMakeLists.txt
+│─main.cpp
+└─src
+   ├─readmeFile
+   │  └─`pictures in README`
+   └─src
+      └─`some picture/gits in project`
+```
+
+
 
 ## ⛓ 施工中...
 
-## TODO 
+### TODO 
 - [⏱]单目相机标定
     - [✅] 张正友标定板
     - [] asym
@@ -32,7 +55,7 @@
 
 # A MATLAB-calibrate-APP-Like calibrate Tool based on Qt&OpenCV
 ## ⛓building...
-## TODO
+### TODO
 - [✅]mono calibrate
     - [✅] checkerboard
     - [] asym

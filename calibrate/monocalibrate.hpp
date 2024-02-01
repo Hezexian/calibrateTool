@@ -47,7 +47,7 @@ public:
      * @param srcImg
      * @return 矫正后的图像
      */
-    Mat undistort(const Mat& srcImg);
+    static Mat undistort(const Mat &srcImg,const CaliParam &caliparam);
 
     /** 导出标定结果
      * @brief exportParams
@@ -111,10 +111,10 @@ MonoCalibrate::calibrate()
     return caliparam;
 }
 
-inline Mat MonoCalibrate::undistort(const Mat &srcImg)
+inline Mat MonoCalibrate::undistort(const Mat &srcImg,const CaliParam &caliparam)
 {
     cv::Mat undistortedImage;
-    cv::undistort(srcImg, undistortedImage, m_caliparam.cameraMatrix, m_caliparam.distCoeffs);
+    cv::undistort(srcImg, undistortedImage, caliparam.cameraMatrix, caliparam.distCoeffs);
     return undistortedImage;
 }
 

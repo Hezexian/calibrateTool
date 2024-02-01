@@ -55,6 +55,7 @@ private:
     properties m_props; // 标定板属性
     result_ckbd m_res_ckbd;//角点查找结果
     CaliParam m_monoCaliParam; //标定的相机参数
+    QListWidget *m_imgList; //左侧图像列表
 
 signals:
     // find chessboard corner 任务完成

@@ -58,6 +58,8 @@ private:
     QListWidget *m_imgList; //左侧图像列表
 
     bool m_isUndistortShow = false; //image tab中是否展示矫正后的图像
+    int m_dataBrowserIdx = 0; // dataBrowser tab的图像列表序号
+
 
 signals:
     // find chessboard corner 任务完成
@@ -70,7 +72,6 @@ signals:
 public slots:
     void addImages(int index);
     void pushButtonCalibrateClicked();
-    void pushButtonShowUndistortedClicked();
 
 };
 #endif // MAINWINDOW_HPP

@@ -71,7 +71,15 @@ MainWindow::MainWindow(QWidget *parent)
     // Show unDistorted button
     if(m_monoCaliParam.cameraMatrix.empty())
         ui->pushButton_showUndistorted->setDisabled(true);
-    connect(ui->pushButton_showUndistorted,&QPushButton::clicked,this,&MainWindow::pushButtonShowUndistortedClicked);
+    connect(ui->pushButton_showUndistorted,&QPushButton::clicked,this,[=](){
+        if(m_isUndistortShow){
+            m_isUndistortShow = false;
+            emit pushButtonShowUndistortedClickedSig(m_isUndistortShow);
+        }else{
+            m_isUndistortShow = true;
+            emit pushButtonShowUndistortedClickedSig(m_isUndistortShow);
+        }
+    });
 
     // export button
     if(m_monoCaliParam.cameraMatrix.empty())
@@ -236,16 +244,15 @@ void MainWindow::tab_dataBrowser()
     m_imgList = new QListWidget(ui->tab_dataBrowser);
     auto &imgList = m_imgList;
 
-    int idx = 0;
     /* show draw chessboard images in IMAGE TAB*/
-    connect(imgList,&QListWidget::itemClicked,this,[=](QListWidgetItem *item)mutable{
-        idx = imgList->row(item);
-        tab_image(idx);
+    connect(imgList,&QListWidget::itemClicked,this,[=](QListWidgetItem *item)/*mutable*/{
+        m_dataBrowserIdx = imgList->row(item);
+        tab_image(m_dataBrowserIdx);
     });
 
     /* show undistorted image */
     connect(this,&MainWindow::pushButtonShowUndistortedClickedSig,this,[=](){
-        tab_image(idx);
+        tab_image(m_dataBrowserIdx);
     });
 
 
@@ -272,7 +279,7 @@ void MainWindow::tab_dataBrowser()
     }
     imgList->show();
 
-    this->tab_image(idx);
+    this->tab_image(m_dataBrowserIdx);
 }
 
 /** show "draw chessboard corner"
@@ -371,16 +378,5 @@ void MainWindow::pushButtonCalibrateClicked()
     });
 
 
-}
-
-void MainWindow::pushButtonShowUndistortedClicked()
-{
-    if(m_isUndistortShow){
-        m_isUndistortShow = false;
-        emit pushButtonShowUndistortedClickedSig(m_isUndistortShow);
-    }else{
-        m_isUndistortShow = true;
-        emit pushButtonShowUndistortedClickedSig(m_isUndistortShow);
-    }
 }
 

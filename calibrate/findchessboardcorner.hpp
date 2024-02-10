@@ -34,7 +34,6 @@ public:
 
         vector<Mat> validImgs; // 有效图像
         vector<Mat> invalidImgs; // 无效图像
-        vector<Mat> cornersImgs; // 绘制角点后的图像
         std::vector<std::vector<cv::Point3f>> objectPoints;
         std::vector<std::vector<cv::Point2f>> imagePoints;
     }result_ckbd;
@@ -167,7 +166,6 @@ FindChessboardCorner::checherboard(const QStringList &fileNames)
 
     res.validImgs = validImgs;
     res.invalidImgs = invalidImgs;
-    res.cornersImgs = cornersImgs;
 
     res.imagePoints = imagePoints;
     res.objectPoints = objectPoints;

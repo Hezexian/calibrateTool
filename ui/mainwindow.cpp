@@ -196,7 +196,7 @@ void MainWindow::detectResDialog(const result_ckbd &res)
         rejImgDlog->setWindowTitle(tr("Rejected Images"));
         rejImgDlog->setFixedSize(QSize(1002,790));
         //有个bug，×掉后mainwindow会最小化，故暂时禁用×
-        rejImgDlog->setWindowFlags(Qt::SplashScreen);
+        rejImgDlog->setWindowFlags(Qt::SplashScreen); // 无边框窗口
 //        rejImgDlog->setWindowFlags(rejImgDlog->windowFlags() & ~Qt::WindowCloseButtonHint );
 //        QLabel *tmp = new QLabel("有个bug，×掉后mainwindow\n会最小化，故暂时禁用×",rejImgDlog);
 //        tmp->setGeometry(821,10,200,100);
@@ -294,7 +294,8 @@ void MainWindow::tab_image(int index)
         img = MonoCalibrate::undistort(img,m_monoCaliParam);
     }
     else{
-        img = m_res_ckbd.cornersImgs[index];
+        img = m_res_ckbd.validImgs[index].clone();
+        cv::drawChessboardCorners(img,cv::Size(m_props.cols,m_props.rows),m_res_ckbd.imagePoints[index],true);
     }
     QPixmap *pixmap = new QPixmap(Mat2Pixmap(img));
     QLabel *imglab = new QLabel(ui->tab_showImg);

@@ -31,12 +31,10 @@ public:
 
 
     // find (detect) chessboard corner
-    using properties = PropertiesDialog::properties;
-    void findChessBoard(properties props);
-
-    // Detection Results Dialog
-    using result_ckbd = FindChessboardCorner::result_ckbd;
-    void detectResDialog(const result_ckbd&);
+    using properties = PropertiesDialog::properties; // 标定板属性
+    void findChessBoard(properties props);  
+    using result_ckbd = FindChessboardCorner::result_ckbd;// 角点查找结果
+    void detectResDialog(const result_ckbd&); // 展示角点检测结果的对话框
 
     // 标定图像列表(data browser)
     void tab_dataBrowser();

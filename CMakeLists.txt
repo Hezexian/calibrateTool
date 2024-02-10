@@ -46,9 +46,9 @@ set(PROJECT_SOURCES
         ${UIDIR}/mainwindow.ui
 
         # image And Pattern Properties Dialog
-        ${UIDIR}/imageandpatternproperties.hpp
-        ${UIDIR}/imageandpatternproperties.cpp
-        ${UIDIR}/imageandpatternproperties.ui
+        ${UIDIR}/propertiesdialog.hpp
+        ${UIDIR}/propertiesdialog.cpp
+        ${UIDIR}/propertiesdialog.ui
 
         # resource
         src.qrc
@@ -62,6 +62,7 @@ set(PROJECT_SOURCES
         # calibrate source file
         ${CALIDIR}/findchessboardcorner.hpp
         ${CALIDIR}/monocalibrate.hpp
+        ${CALIDIR}/SteroCalibrate.hpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

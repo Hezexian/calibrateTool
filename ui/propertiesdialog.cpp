@@ -1,12 +1,12 @@
-#include "imageandpatternproperties.hpp"
+#include "propertiesdialog.hpp"
 #include "qlineedit.h"
 #include <QDebug>
 #include <QSize>
 #include <QTextEdit>
 
-ImageAndPatternProperties::ImageAndPatternProperties(QWidget *parent) :
+PropertiesDialog::PropertiesDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::ImageAndPatternProperties)
+    ui(new Ui::PropertiesDialog)
 {
     ui->setupUi(this);
 
@@ -58,16 +58,16 @@ ImageAndPatternProperties::ImageAndPatternProperties(QWidget *parent) :
     ui->label_synImg->setPixmap(QPixmap(":/src/src/checkboard3.png"));
 
     // Dialog button
-    connect(ui->buttonBox,&QDialogButtonBox::accepted,this,&ImageAndPatternProperties::dialogBtnBox);
+    connect(ui->buttonBox,&QDialogButtonBox::accepted,this,&PropertiesDialog::dialogBtnBox);
 }
 
-ImageAndPatternProperties::~ImageAndPatternProperties()
+PropertiesDialog::~PropertiesDialog()
 {
     delete ui;
 }
 
 // dialog button slot
-void ImageAndPatternProperties::dialogBtnBox()
+void PropertiesDialog::dialogBtnBox()
 {
 
     switch(ui->tabWidget_properties->currentIndex()){

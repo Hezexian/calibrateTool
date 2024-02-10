@@ -4,23 +4,23 @@
 #ifndef IMAGEANDPATTERNPROPERTIES_HPP
 #define IMAGEANDPATTERNPROPERTIES_HPP
 
-#include "./ui_imageandpatternproperties.h"
+#include "./ui_propertiesdialog.h"
 
 #include <QDialog>
 #include <QPushButton>
 
 
 namespace Ui {
-class ImageAndPatternProperties;
+class PropertiesDialog;
 }
 
-class ImageAndPatternProperties : public QDialog
+class PropertiesDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit ImageAndPatternProperties(QWidget *parent = nullptr);
-    ~ImageAndPatternProperties();
+    explicit PropertiesDialog(QWidget *parent = nullptr);
+    ~PropertiesDialog();
 
     struct properties{
         QString pattern = ""; // 三种模式共有属性.将会根据属性名称判断读取哪些属性
@@ -40,7 +40,7 @@ public:
     };
 
 private:
-    Ui::ImageAndPatternProperties *ui;
+    Ui::PropertiesDialog *ui;
 
 public slots:
     void dialogBtnBox();

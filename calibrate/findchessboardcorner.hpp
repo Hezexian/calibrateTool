@@ -7,7 +7,7 @@
 #ifndef FINDCHESSBOARDCORNER_HPP
 #define FINDCHESSBOARDCORNER_HPP
 
-#include "../ui/imageandpatternproperties.hpp"
+#include "../ui/propertiesdialog.hpp"
 
 #include <QObject>
 #include <opencv2/opencv.hpp>
@@ -24,7 +24,7 @@ class FindChessboardCorner : public QObject
     Q_OBJECT
 public:
     using uint = unsigned int;
-    using properties = ImageAndPatternProperties::properties;
+    using properties = PropertiesDialog::properties;
     // （第一种标定板）棋盘格标定结果
     typedef struct result_ckbd{
         uint totalImg = 0;
@@ -40,9 +40,9 @@ public:
     }result_ckbd;
 
 public:
-    explicit FindChessboardCorner(QObject *parent = nullptr){};
+    explicit FindChessboardCorner(QObject *parent = nullptr){}
     explicit FindChessboardCorner(properties props, QObject *parent = nullptr)
-        : QObject{parent},m_props(props){};
+        : QObject{parent},m_props(props){}
 
 
     /**

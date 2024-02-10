@@ -3,7 +3,7 @@
 
 #include "../calibrate/findchessboardcorner.hpp"
 #include "../calibrate/monocalibrate.hpp"
-#include "imageandpatternproperties.hpp"
+#include "propertiesdialog.hpp"
 
 
 #include <QMainWindow>
@@ -31,7 +31,7 @@ public:
 
 
     // find (detect) chessboard corner
-    using properties = ImageAndPatternProperties::properties;
+    using properties = PropertiesDialog::properties;
     void findChessBoard(properties props);
 
     // Detection Results Dialog

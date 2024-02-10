@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ImageAndPatternProperties</class>
- <widget class="QDialog" name="ImageAndPatternProperties">
+ <class>PropertiesDialog</class>
+ <widget class="QDialog" name="PropertiesDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -625,7 +625,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>ImageAndPatternProperties</receiver>
+   <receiver>PropertiesDialog</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -641,7 +641,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>ImageAndPatternProperties</receiver>
+   <receiver>PropertiesDialog</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

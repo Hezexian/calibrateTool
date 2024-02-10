@@ -114,9 +114,9 @@ void MainWindow::addImages(int idx)
             "Images (*.png *.jpg *.jpeg)");
         // set checkboard params
         if(m_fileNames.size() != 0){
-            ImageAndPatternProperties *imageAndPatternPropertiesDialog = new ImageAndPatternProperties();
-            connect(imageAndPatternPropertiesDialog,&ImageAndPatternProperties::selectedPattern,
-                    this,[=](ImageAndPatternProperties::properties props){
+            PropertiesDialog *imageAndPatternPropertiesDialog = new PropertiesDialog();
+            connect(imageAndPatternPropertiesDialog,&PropertiesDialog::selectedPattern,
+                    this,[=](PropertiesDialog::properties props){
                         m_props = props;
                         this->findChessBoard(props);});
             imageAndPatternPropertiesDialog->exec();

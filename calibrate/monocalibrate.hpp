@@ -32,9 +32,9 @@ public:
 
 public:
     MonoCalibrate(result_ckbd res_ckbd,QObject *parent = nullptr)
-        :m_res_ckbd{res_ckbd}{};
+        :m_res_ckbd{res_ckbd}{}
     MonoCalibrate(const MonoCalibrate &caliobj)
-        :m_res_ckbd(caliobj.m_res_ckbd),m_caliparam(caliobj.m_caliparam){ };
+        :m_res_ckbd(caliobj.m_res_ckbd),m_caliparam(caliobj.m_caliparam){ }
 
     /** 张正友标定法功能函数
      * @brief calibrate

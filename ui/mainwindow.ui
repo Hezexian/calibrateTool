@@ -214,7 +214,7 @@
           <property name="title">
            <string>CAMERA MODEL</string>
           </property>
-          <widget class="QPushButton" name="pushButton_cameraModelOptions">
+          <widget class="QPushButton" name="pushButton_options">
            <property name="geometry">
             <rect>
              <x>130</x>

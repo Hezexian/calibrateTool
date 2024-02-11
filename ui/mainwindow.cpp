@@ -95,6 +95,9 @@ MainWindow::MainWindow(QWidget *parent)
     // Pattern-centric
     ui->tabWidget_centric->setTabText(1,tr("Pattern-centric"));
 
+    /*pushbutton_options*/
+    connect(ui->pushButton_options,&QPushButton::clicked,this,&MainWindow::pushButtonOptionsClicked);
+
 
 }
 
@@ -189,31 +192,6 @@ void MainWindow::detectResDialog(const result_ckbd &res)
     QPushButton *viewbtn = new QPushButton(drDialog);
     viewbtn->setGeometry(370,119,106,26);
     viewbtn->setText(tr("view images"));
-    connect(viewbtn,&QPushButton::clicked,drDialog,[=](){
-        /* 展示没有检查到corner的标定板照片 */
-        // Rejected Images
-        QDialog *rejImgDlog = new QDialog(drDialog);
-        rejImgDlog->setWindowTitle(tr("Rejected Images"));
-        rejImgDlog->setFixedSize(QSize(1002,790));
-        //有个bug，×掉后mainwindow会最小化，故暂时禁用×
-        rejImgDlog->setWindowFlags(Qt::SplashScreen); // 无边框窗口
-//        rejImgDlog->setWindowFlags(rejImgDlog->windowFlags() & ~Qt::WindowCloseButtonHint );
-//        QLabel *tmp = new QLabel("有个bug，×掉后mainwindow\n会最小化，故暂时禁用×",rejImgDlog);
-//        tmp->setGeometry(821,10,200,100);
-
-        QLabel *label0 = new QLabel(rejImgDlog); // 展示被删除的图像
-        // TODO:将res.rejectedImg合并成一张图片，转成QPixmap后在rejImgDlog(264,93)展现
-
-        QPushButton *yesbtn = new QPushButton(rejImgDlog);
-        yesbtn->setText(tr("yes"));
-        yesbtn->setGeometry(464,757,72,26);
-        connect(yesbtn,&QPushButton::clicked,
-                rejImgDlog,[=](){rejImgDlog->close();drDialog->exec();});
-
-        drDialog->hide();
-        rejImgDlog->exec();
-    });
-
 
     /* labels */
     QLabel *label0 = new QLabel(tr("Total images processed:"),drDialog);
@@ -231,8 +209,70 @@ void MainWindow::detectResDialog(const result_ckbd &res)
     label2->setGeometry(21,65,221,21);label6->setGeometry(334,65,21,21);
     label3->setGeometry(21,89,221,21);label7->setGeometry(334,89,21,21);
 
+    connect(viewbtn,&QPushButton::clicked,drDialog,[=](){
+        /* 展示没有检查到corner的标定板照片 */
+        // Rejected Images
+        QDialog *rejImgDlog = new QDialog(drDialog);
+        rejImgDlog->setWindowTitle(tr("Rejected Images"));
+        rejImgDlog->setFixedSize(QSize(1002,790));
+        rejImgDlog->setWindowFlags(Qt::SplashScreen); // 无边框窗口
+
+        // 展示被删除的图像
+        QLabel *labelinval = new QLabel(rejImgDlog);
+        // TODO:将res.rejectedImg合并成一张图片，转成QPixmap后在rejImgDlog(264,93)展现
+        cv::Size sz = m_res_ckbd.invalidImgs[0].size();
+        int numOfimgs = m_res_ckbd.invalidImgs.size();
+        double sc = 5.0,numOfImgInARow=8;
+        Mat allInvalidImgs(ceil(sz.height/sc * ceil(numOfimgs/numOfImgInARow) +2), ceil(sz.width/sc * numOfImgInARow +2),
+                           m_res_ckbd.invalidImgs[0].type(), cv::Scalar(0, 0, 0));
+
+
+        // 将当前图像复制到合并后图像的相应位置
+        //-----------------------------------------------
+        size_t imgidx = 0;
+        auto mergeInvalidImg = [&](size_t col, size_t row){
+            // clazy:skip
+            Mat img = m_res_ckbd.invalidImgs[imgidx];
+            cv::resize(img, img, cv::Size(ceil(sz.width/sc), ceil(sz.height/sc)));
+            cv::Rect roi = Rect(ceil(sz.width/sc * col+1), ceil(sz.height/sc * row+1),
+                                ceil(sz.width/sc), ceil(sz.height/sc));
+            img.copyTo(allInvalidImgs(roi));
+            ++imgidx;
+        };
+        for(size_t row = 0; row<ceil(numOfimgs/8.0);++row){
+
+            size_t showcnt = imgidx;//已经展示了几张图片
+
+            if(numOfimgs-imgidx<numOfImgInARow){ //图像数量不足一行
+                for(size_t col=0;col<numOfimgs-showcnt;++col){
+                    mergeInvalidImg(col,row);
+                }
+            }
+            else{ // >=8
+                for(size_t col=0; col < numOfImgInARow; ++col){
+                    mergeInvalidImg(col,row);
+                }
+            }
+        }
+
+        QPixmap pix = Mat2Pixmap(allInvalidImgs);
+        labelinval->setPixmap(pix);
+        //------------------------------------------------
+
+
+        QPushButton *yesbtn = new QPushButton(rejImgDlog);
+        yesbtn->setText(tr("yes"));
+        yesbtn->setGeometry(464,757,72,26);
+        connect(yesbtn,&QPushButton::clicked,
+                rejImgDlog,[=](){rejImgDlog->close();drDialog->exec();});
+
+        drDialog->hide();
+        rejImgDlog->show();
+    });
+
 
     drDialog->exec();
+
 
 }
 
@@ -278,6 +318,11 @@ void MainWindow::tab_dataBrowser()
 
     }
     imgList->show();
+
+    /* 修改tab_databrowers的标题，展示添加了多少个图像*/
+    QString tabnm = ui->tabWidget_dataBrowser->tabText(0);
+    tabnm+=QString("(%1)").arg(this->m_res_ckbd.addedImg);
+    ui->tabWidget_dataBrowser->setTabText(0,tr(qPrintable(tabnm)));
 
     this->tab_image(m_dataBrowserIdx);
 }
@@ -378,6 +423,14 @@ void MainWindow::pushButtonCalibrateClicked()
         MonoCalibrate::exportParams(m_monoCaliParam);
     });
 
+
+}
+
+/** pushButton_options slots
+ * @brief MainWindow::pushButtonOptionsClicked
+ */
+void MainWindow::pushButtonOptionsClicked()
+{
 
 }
 

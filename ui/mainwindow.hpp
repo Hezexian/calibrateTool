@@ -70,6 +70,7 @@ signals:
 public slots:
     void addImages(int index);
     void pushButtonCalibrateClicked();
+    void pushButtonOptionsClicked();
 
 };
 #endif // MAINWINDOW_HPP

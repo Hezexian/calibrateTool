@@ -57,7 +57,6 @@ set(PROJECT_SOURCES
 
         # utils
         ${CALIDIR}/imageFormat.hpp
-        ${CALIDIR}/export.hpp
 
         # calibrate source file
         ${CALIDIR}/findchessboardcorner.hpp

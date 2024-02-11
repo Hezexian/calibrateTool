@@ -30,7 +30,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab_mono">
        <attribute name="title">
@@ -392,19 +392,272 @@
        <attribute name="title">
         <string>页</string>
        </attribute>
-       <widget class="QPushButton" name="pushButton_closeCamera">
-        <property name="geometry">
-         <rect>
-          <x>660</x>
-          <y>30</y>
-          <width>93</width>
-          <height>81</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>close</string>
-        </property>
-       </widget>
+       <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <item>
+         <widget class="QGroupBox" name="groupBox">
+          <property name="minimumSize">
+           <size>
+            <width>241</width>
+            <height>121</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>241</width>
+            <height>121</height>
+           </size>
+          </property>
+          <property name="title">
+           <string>DEVICE</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_4">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_3">
+             <item>
+              <widget class="QLabel" name="label_3">
+               <property name="text">
+                <string>Camera</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="comboBox">
+               <property name="minimumSize">
+                <size>
+                 <width>151</width>
+                 <height>21</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_8">
+             <property name="minimumSize">
+              <size>
+               <width>221</width>
+               <height>23</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Camera Properties</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="groupBox_3">
+          <property name="maximumSize">
+           <size>
+            <width>634</width>
+            <height>121</height>
+           </size>
+          </property>
+          <property name="title">
+           <string>SETTINGS</string>
+          </property>
+          <widget class="QPushButton" name="pushButton_closeCamera_2">
+           <property name="geometry">
+            <rect>
+             <x>531</x>
+             <y>27</y>
+             <width>93</width>
+             <height>81</height>
+            </rect>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>93</width>
+             <height>81</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Broser</string>
+           </property>
+          </widget>
+          <widget class="QWidget" name="">
+           <property name="geometry">
+            <rect>
+             <x>11</x>
+             <y>26</y>
+             <width>505</width>
+             <height>83</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_5">
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_4">
+              <item>
+               <widget class="QLabel" name="label_4">
+                <property name="text">
+                 <string>Save Location</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="lineEdit">
+                <property name="minimumSize">
+                 <size>
+                  <width>221</width>
+                  <height>21</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QGridLayout" name="gridLayout_2">
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_5">
+                <property name="text">
+                 <string>Capture Interval</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QLineEdit" name="lineEdit_2">
+                <property name="minimumSize">
+                 <size>
+                  <width>41</width>
+                  <height>21</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>41</width>
+                  <height>21</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="2">
+               <widget class="QSlider" name="horizontalSlider">
+                <property name="minimumSize">
+                 <size>
+                  <width>271</width>
+                  <height>22</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>271</width>
+                  <height>22</height>
+                 </size>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="label_6">
+                <property name="text">
+                 <string>Number of Images to Capture</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QLineEdit" name="lineEdit_3">
+                <property name="minimumSize">
+                 <size>
+                  <width>41</width>
+                  <height>21</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>41</width>
+                  <height>21</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="2">
+               <widget class="QSlider" name="horizontalSlider_2">
+                <property name="minimumSize">
+                 <size>
+                  <width>271</width>
+                  <height>22</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>271</width>
+                  <height>22</height>
+                 </size>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="groupBox_2">
+          <property name="maximumSize">
+           <size>
+            <width>111</width>
+            <height>119</height>
+           </size>
+          </property>
+          <property name="title">
+           <string>CAPTURE</string>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_7">
+           <item>
+            <widget class="QPushButton" name="pushButton_7">
+             <property name="minimumSize">
+              <size>
+               <width>91</width>
+               <height>81</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Capture</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="groupBox_4">
+          <property name="maximumSize">
+           <size>
+            <width>113</width>
+            <height>118</height>
+           </size>
+          </property>
+          <property name="title">
+           <string>CLOSE</string>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_6">
+           <item>
+            <widget class="QPushButton" name="pushButton_closeCamera">
+             <property name="minimumSize">
+              <size>
+               <width>93</width>
+               <height>81</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Close</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>
